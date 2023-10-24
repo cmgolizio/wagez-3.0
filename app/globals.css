@@ -17,11 +17,7 @@
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  background: linear-gradient(360deg, hsla(98, 39%, 56%, 1) 0%, hsla(110, 64%, 28%, 1) 100%);
+  /* background: linear-gradient(360deg, hsla(98, 39%, 56%, 1) 35%, hsla(110, 64%, 28%, 1) 100%); */
+  /* background: linear-gradient(180deg, hsla(98, 39%, 56%, 1) 35%, hsla(110, 64%, 28%, 1) 100%); */
 }
