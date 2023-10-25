@@ -12,7 +12,7 @@ const handleSplitTimes = (time) => {
 };
 
 const timeDifference = (timeStart, timeEnd) => {
-  const result = { hours: 0, minutes: 0 };
+  const result = { hours: null, minutes: null };
   const startObj = handleSplitTimes(timeStart);
   const endObj = handleSplitTimes(timeEnd);
 
@@ -34,14 +34,14 @@ const timeDifference = (timeStart, timeEnd) => {
 
 function calculateEarnings(timeObj, hourlyRate) {
   const { hours, minutes } = timeObj;
+  const result = { moneyHours: 0, moneyMins: 0 };
   const hourly = Number(hourlyRate);
   const partialHour = minutes / 60;
-  const result = { moneyHours: 0, moneyMins: 0 };
   result.moneyHours = hours * hourly;
   result.moneyMins = partialHour * hourly;
 
   const total = result.moneyHours + result.moneyMins;
-  return Number(total.toFixed(2));
+  return Number.parseFloat(total).toFixed(2);
 }
 
 export default function getTimeDiff(values) {
@@ -55,7 +55,7 @@ export default function getTimeDiff(values) {
     shiftTimeLength: shiftTimesDifference,
     breakTimeLength: breakTimesDifference,
     shiftMinusBreak: { hours: 0, minutes: 0 },
-    hourlyEarnings: null,
+    hourlyEarnings: 0,
   };
   const { shiftTimeLength, breakTimeLength, shiftMinusBreak } = finalResult;
   shiftMinusBreak.hours = shiftTimeLength.hours - breakTimeLength.hours;
@@ -66,7 +66,6 @@ export default function getTimeDiff(values) {
       shiftMinusBreak.minutes = 60 - mins;
       shiftMinusBreak.hours = shiftMinusBreak.hours - 1;
     } else {
-      shiftMinusBreak.hours = shiftTimeLength.hours - breakTimeLength.hours;
       shiftMinusBreak.minutes =
         shiftTimeLength.minutes - breakTimeLength.minutes;
     }
@@ -76,45 +75,16 @@ export default function getTimeDiff(values) {
     }
   } else {
     finalResult.shiftMinusBreak = { ...shiftTimeLength };
-    finalResult.hourlyEarnings = calculateEarnings(
-      shiftTimeLength,
-      hourly.value
-    );
   }
+  const moneyEarned = breakStart
+    ? calculateEarnings(shiftMinusBreak, hourly.value)
+    : calculateEarnings(shiftTimeLength, hourly.value);
+  finalResult.hourlyEarnings = moneyEarned;
 
   if (shiftMinusBreak.minutes === 60) {
     shiftMinusBreak.minutes = 0;
     shiftMinusBreak.hours = shiftMinusBreak.hours + 1;
   }
 
-  if (shiftMinusBreak.hours === 0 && shiftMinusBreak.minutes === 0) {
-    const moneyEarned = calculateEarnings(shiftTimeLength, hourly.value);
-    finalResult.hourlyEarnings = moneyEarned;
-  } else {
-    const moneyEarned = calculateEarnings(shiftMinusBreak, hourly.value);
-    finalResult.hourlyEarnings = moneyEarned;
-  }
-
   return finalResult;
-}
-
-{
-  /**
-// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! //
-// const startTimeDate = new Date(startTime);
-// const endTimeDate = new Date(endTime);
-// // Calculate the time difference in milliseconds
-// const differenceMs = endTimeDate - startTimeDate;
-// // Convert milliseconds to hours and minutes
-// const hours = Math.floor(differenceMs / 3600000);
-// const minutes = Math.floor((differenceMs % 3600000) / 60000);
-// // Create an object containing the time difference split into hours and minutes
-// const differenceObj = {
-//   hours,
-//   minutes,
-// };
-// // console.log("FROM getDiff.js: ", differenceString);
-// return differenceObj;
-// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! //
-*/
 }
