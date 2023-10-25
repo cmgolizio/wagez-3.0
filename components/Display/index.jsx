@@ -23,14 +23,22 @@ const Display = () => {
     return null;
   }
   return (
-    <div className='h-full w-full grid grid-cols-2 grid-rows-4 content-center justify-start text-[#16161D] text-3xl text-center pt-20 pl-4'>
-      <h1 className='col-start-1 row-start-1 text-[#16161D]'>{"Worked: "}</h1>
-      <h1 className='col-start-1 row-start-2 text-[#16161D]'>{"Earned: "}</h1>
+    <div className='h-full w-full grid grid-cols-2 grid-rows-4 content-center justify-start text-[#16161D] text-3xl pt-20 pl-4'>
+      <h1 className='justify-self-end col-start-1 row-start-1 text-[#16161D] mr-3'>
+        {"Worked: "}
+      </h1>
+      <h1 className='justify-self-end col-start-1 row-start-2 text-[#16161D] mr-3'>
+        {"Earned: "}
+      </h1>
       {breakTime && (
-        <h1 className='col-start-1 row-start-3 text-[#16161D]'>{"Shift: "}</h1>
+        <h1 className='justify-self-end col-start-1 row-start-3 text-[#16161D] mr-3'>
+          {"Shift: "}
+        </h1>
       )}
       {breakTime && (
-        <h1 className='col-start-1 row-start-4 text-[#16161D]'>{"Break: "}</h1>
+        <h1 className='justify-self-end col-start-1 row-start-4 text-[#16161D] mr-3'>
+          {"Break: "}
+        </h1>
       )}
 
       <h1 className='col-start-2 row-start-1 text-[#6cf58e]'>{totalTime}</h1>
