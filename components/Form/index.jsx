@@ -12,14 +12,12 @@ const Form = ({ setShowDisplay }) => {
   const { values } = useContext(AppContext);
   const { times, breakTimes, diff, hourly, day, week, display } = values;
 
-  const handleToggleBreakTime = (e) => {
-    e.preventDefault();
-
+  const handleToggleBreakTime = () => {
     return setAddBreak((prev) => {
       if (!prev) {
         return true;
       } else {
-        breakTimes.setter({ breakStart: "", breakEnd: "" });
+        breakTimes.breakTimesSetter({ breakStart: "", breakEnd: "" });
         return false;
       }
     });
@@ -32,7 +30,7 @@ const Form = ({ setShowDisplay }) => {
       if (!prev) {
         return true;
       } else {
-        breakTimes.setter({ breakStart: "", breakEnd: "" });
+        breakTimes.breakTimesSetter({ breakStart: "", breakEnd: "" });
         return false;
       }
     });
@@ -91,13 +89,13 @@ const Form = ({ setShowDisplay }) => {
       earned: hourlyEarnings,
     };
 
-    display.setter(newDisplay);
+    display.displaySetter(newDisplay);
     setShowDisplay(true);
-    return await diff.setter(newDiff);
+    return await diff.diffSetter(newDiff);
   };
 
   useEffect(() => {
-    week.setter({
+    week.weekSetter({
       ...week.value,
       [day.value]: {
         data: diff?.value,
@@ -131,7 +129,7 @@ const Form = ({ setShowDisplay }) => {
             name='start-time'
             id='start-time'
             onChange={(e) =>
-              times.setter({
+              times.timesSetter({
                 ...times.value,
                 startTime: e.target.value,
               })
@@ -150,7 +148,7 @@ const Form = ({ setShowDisplay }) => {
             name='end-time'
             id='end-time'
             onChange={(e) =>
-              times.setter({
+              times.timesSetter({
                 ...times.value,
                 endTime: e.target.value,
               })
@@ -167,7 +165,7 @@ const Form = ({ setShowDisplay }) => {
             name='hourly-rate'
             id='hourly-rate'
             type='number'
-            onChange={(e) => hourly.setter(e.target.value)}
+            onChange={(e) => hourly.hourlySetter(e.target.value)}
             value={hourly?.value}
             placeholder='$0'
           />
@@ -179,17 +177,17 @@ const Form = ({ setShowDisplay }) => {
       <div className='w-full flex flex-row items-center justify-center mt-4'>
         <button
           className='text-md bg-[#34a56c] text-[#f8f8ff] rounded-full border border-gray-600 px-1.5 py-1 hover:scale-105 active:scale-100 w-fit mr-2'
-          onClick={(e) => handleToggleBreakTime(e)}
+          onClick={handleToggleBreakTime}
           name='break-toggle'
         >
-          {addBreak ? "no break" : "+ break"}
+          {addBreak ? "no break" : "+break"}
         </button>
         <button
           className='text-md ml-2 bg-[#34a56c] text-[#f8f8f8] rounded-full border border-gray-600 px-1.5 py-1 hover:scale-105 active:scale-100'
           name='shift-toggle'
           onClick={(e) => handleToggleAddShift(e)}
         >
-          {addShift ? "no shifts" : "+ shift"}
+          {addShift ? "no shifts" : "+shift"}
         </button>
       </div>
       {addBreak && (
@@ -207,7 +205,7 @@ const Form = ({ setShowDisplay }) => {
               id='break-start'
               type='time'
               onChange={(e) =>
-                breakTimes.setter({
+                breakTimes.breakTimesSetter({
                   ...breakTimes.value,
                   breakStart: e.target.value,
                 })
@@ -225,7 +223,7 @@ const Form = ({ setShowDisplay }) => {
               id='break-end'
               type='time'
               onChange={(e) =>
-                breakTimes.setter({
+                breakTimes.breakTimesSetter({
                   ...breakTimes.value,
                   breakEnd: e.target.value,
                 })
@@ -249,7 +247,7 @@ const Form = ({ setShowDisplay }) => {
           <input
             type='date'
             className='rounded-xl opacity-90 py-1 px-2 bg-[#b7ffc9]'
-            onChange={(e) => day.setter(e.target.value)}
+            onChange={(e) => day.daySetter(e.target.value)}
             value={day?.value}
           />
         </div>

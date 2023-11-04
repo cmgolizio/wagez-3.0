@@ -55,31 +55,45 @@ const AppProvider = ({ children }) => {
     return {
       times: {
         value: shiftTimes,
-        setter: setShiftTimes,
+        timesSetter(times) {
+          return setShiftTimes(times);
+        },
       },
       breakTimes: {
         value: breakTime,
-        setter: setBreakTime,
+        breakTimesSetter(times) {
+          return setBreakTime(times);
+        },
       },
       diff: {
         value: timeDiff,
-        setter: setTimeDiff,
+        diffSetter(times) {
+          return setTimeDiff(times);
+        },
       },
       hourly: {
         value: hourlyRate,
-        setter: setHourlyRate,
+        hourlySetter(rate) {
+          return setHourlyRate(rate);
+        },
       },
       day: {
         value: dayOfWeek,
-        setter: setDayOfWeek,
+        daySetter(day) {
+          return setDayOfWeek(day);
+        },
       },
       week: {
         value: week,
-        setter: setWeek,
+        weekSetter(week) {
+          return setDayOfWeek(week);
+        },
       },
       display: {
         value: displayData,
-        setter: setDisplayData,
+        displaySetter(data) {
+          return setDisplayData(data);
+        },
       },
     };
   }, [

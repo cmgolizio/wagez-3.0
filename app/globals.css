@@ -2,19 +2,34 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+  #first {
+    @apply row-start-1
+  }
+  #second {
+    @apply row-start-2
+  }
+  #third {
+    @apply row-start-3
+  }
+  #fourth {
+    @apply row-start-4
+  }
+}
+
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: 255, 255, 255;
     --background-start-rgb: 0, 0, 0;
     --background-end-rgb: 0, 0, 0;
   }
-}
+} */
 
 body {
   background: linear-gradient(360deg, hsla(98, 39%, 56%, 1) 0%, hsla(110, 64%, 28%, 1) 100%);
