@@ -235,15 +235,6 @@ const Form = ({ setShowDisplay }) => {
       )}
       {addShift && (
         <div className='w-full flex flex-row items-center justify-center mt-3'>
-          {/* <select>
-            <option></option>
-            <option></option>
-            <option></option>
-            <option></option>
-            <option></option>
-            <option></option>
-            <option></option>
-          </select> */}
           <input
             type='date'
             className='rounded-xl opacity-90 py-1 px-2 bg-[#b7ffc9]'
@@ -263,4 +254,3 @@ const Form = ({ setShowDisplay }) => {
 };
 
 export default Form;
-// export default React.memo(Form);
